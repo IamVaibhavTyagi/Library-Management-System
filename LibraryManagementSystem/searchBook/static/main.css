@@ -1,0 +1,102 @@
+html, body{
+    height:100%;
+    overflow: hidden;
+}
+.container-fluid {
+    /* margin: 0 auto; */
+    /* height: 100%; */
+    height: 90%;
+    /* overflow: auto; */
+}
+
+nav {
+    background-color:rosybrown;
+    height: 5%;
+    font-weight: bolder;
+}
+.nav a{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+    color: black;
+}
+.nav a:hover{
+    color: white;
+    /* background-color: lightgray; */
+}
+
+
+.page-footer {
+    height:5% ;
+    font-size: small;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 0.5% 42%;
+    background-color: lightgray;
+}
+
+.row {
+    position: relative;
+    top: 42%;
+
+}
+.row .search-bar{
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 25%;
+}
+.row .search-text{
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 40%;
+    font-size: xx-large;
+    font-weight: bolder;
+    /* font-style: italic; */
+    font-family: 'Courier New', Courier, monospace;
+}
+.page-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem; 
+}
+
+#searchHeading {
+    font-size: xx-large;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#searchtable{
+    font-family: 'Courier New', Courier, monospace;
+}
+.tablecol{
+    background-color:rosybrown;
+    font-size: x-large;
+    font-weight: bolder;
+}
+.tablerow {
+    font-weight: 600;
+}
+#paginating{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.pagenoheading {
+    font-family: 'Courier New', Courier, monospace;
+    /* font-size: large; */
+    font-weight: bolder;
+}
+
+p.message {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    font-style: italic;
+    margin-top: 20%;
+    margin-left: 25%;
+    background-color: rosybrown;
+}
+
+p.searchHeading {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    font-style: italic;
+}

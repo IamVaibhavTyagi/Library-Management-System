@@ -1,0 +1,7 @@
+{
+    "user": "root",
+    "password": "mysql",
+    "host": "localhost",
+    "database": "librarymgt",
+    "raise_on_warnings": "True"
+}

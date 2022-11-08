@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Library Management System</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link rel="stylesheet" href="homePageCSS.css"> -->
+    
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Nav bar start -->
+    <nav class="nav justify-content-center">
+        
+    </nav>
+    
+    <!-- Nav bar end -->
+    
+        <section class="searchResult">           
+                        
+                <p class = "searchHeading display-5 text-center m-3 p-1" name="searchHeading">SignUp to the system</p>              
+                    
+                <div class="container border border-secondary w-50">                                                              
+                                                
+                    <form class="p-2" action="{% url 'login:signup' %}" method="POST">
+                        {% csrf_token %}
+                        
+                        {{ form.as_p }}                        
+                        
+                        <div class="input-group-append text-center p-2 m-2">
+                          <button class="btn btn-outline-secondary btn-lg col-4 mx-auto" name="signbtn" type="submit">Sign up</button>
+                        </div>
+
+                        <div class="input-group-append text-center p-2 m-2">
+                            <button class="btn btn-outline-secondary btn-lg col-4 mx-auto" name="loginbtn" type="submit"><a href="{% url 'login:login' %}">Go to Log in</a></button>
+                        </div> 
+                       
+
+                    </form>
+                    {% if form.errors %}
+                    <p class="loginmessage text-center w-50">                       
+                        
+                        <div class="alert alert-warning" role="alert">
+                            <p>Meet all the user registeration conditions!</p> 
+                        </div>                                                                           
+                        
+                        </p>
+                    {% endif %} 
+
+                </div>             
+              
+        </section>
+       
+    
+    <!-- Footer start -->
+    <footer class="page-footer">
+        <p>© 2022 Copyright Vaibhav Tyagi</p>   
+    </footer>
+    <!-- Footer End -->
+</body>
+</html>

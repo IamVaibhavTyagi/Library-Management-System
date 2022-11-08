@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Library Management System</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link rel="stylesheet" href="homePageCSS.css"> -->
+    
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Nav bar start -->
+    <nav class="nav justify-content-center">
+        <a class="nav-link" href="/searchBook">Book Search</a>
+        <a class="nav-link" href="/bookCheckIn">Check-In</a>
+        <a class="nav-link" href="/payFine">Pay Fine</a>
+        <a class="nav-link" href="/BorrowerManagement">Borrower Management</a>
+        <a class="nav-link" href="{% url 'login:logout' %}">Logout</a>
+    </nav>
+    
+    <!-- Nav bar end -->
+    {% if not searchValue %}
+
+        {% if flag == True %}
+        <div class="container-fluid">
+            
+            <div class="row">
+                <div class="search-text">
+                    Pay user fine
+                </div>
+                <form action="{% url 'payFine:index' %}" method="post">
+                    <div class="search-bar input-group w-50">
+                        {% csrf_token %}
+                        <input type="text" class="form-control" name="payFineBox" placeholder="Enter User Card Number, Name or SSN">
+                        <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" name="searchbtn" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <form action="{% url 'payFine:refreshFines' %}" class="text-center p-2"  method="POST">
+                    {% csrf_token %}
+                    <!-- <input type="hidden" name="cardno" value = {{fine.0}} /> -->
+                    <button class="btn btn-outline-secondary btn-lg col-4 mx-auto " name="refreshFinesbtn" type="submit">&#x21bb;  REFRESH FINES</button>
+                </form>                             
+            </div>                        
+        </div>
+        {% elif flag == False %}                    
+            <p class="message display-5 border border-5 text-center w-50">Search text box is Empty</p>                       
+        {% endif %}
+
+    {% elif searchValue %}
+        <section class="searchResult"> 
+            
+            
+            {% if page %}
+                <p class = "searchHeading text-center m-3 p-1" id="searchHeading">Fine Amount Results</p>              
+                    
+                <div class="container">                 
+                                                                            
+                        <p class = "pagenoheading">Page Number {{ page.number }} of {{ totalpages }}</p>
+                        
+                        <table id="searchtable" class="table table-striped table-bordered table-sm" >
+                            <tr class = "tablecol text-center">
+                                <th>Card Number</th>
+                                <th>Ssn</th>
+                                <th>Full Name</th>
+                                <th>Fine Amount</th>
+                                <th>Pay</th>
+                            </tr>
+                            {% for fine in page.object_list %}
+                            <tr class="tablerow text-center">
+                                <td>{{ fine.0 }}</td>
+                                <td>{{ fine.1 }}</td>
+                                <td>{{ fine.2 }}</td>
+                                <td>{{ fine.3 }}</td>
+                                            
+                                <td>
+                                    <form action="{% url 'payFine:makePayment' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="cardno" value = {{fine.0}} />
+                                        <button class="btn btn-outline-secondary" name="payFinebtn" type="submit">Pay</button>
+                                    </form>                                     
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <form action="" id = "paginating" method= "get">
+                            {% csrf_token %}
+                            
+                            {% if page.has_previous %}
+                            <button class="btn btn-outline-secondary" name="firstbtn" type="submit" value= '{{1}}' >&laquo; First Page</button>                            
+                            <button class="btn btn-outline-secondary" name="previousbtn" type="submit" value= '{{ page.previous_page_number }}' >Previous</button>
+                            {% endif %}                            
+
+                            {% if page.has_next %}
+                            <button class="btn btn-outline-secondary" name="nextbtn" type="submit" value='{{ page.next_page_number }}'>Next</button>
+                            <button class="btn btn-outline-secondary" name="lastbtn" type="submit" value= '{{ totalpages }}' >Last Page &raquo;</button>                                
+                            {% endif %}
+                            
+                        </form>
+                </div>
+                
+            {% else %}
+                <p class="message display-5 border border-5 text-center w-50">No fines for the user!</p>
+            {% endif %}
+              
+        </section>
+    {% endif %}
+    {% if message %}
+        <p class="message display-5 border border-5 text-center w-50">{{ message }}</p>
+    {% endif %}
+    <!-- Footer start -->
+    <footer class="page-footer">
+        <p>© 2022 Copyright Vaibhav Tyagi</p>   
+    </footer>
+    <!-- Footer End -->
+</body>
+</html>

@@ -1,0 +1,12 @@
+Package           Version
+----------------- -------
+-ip               20.1.1
+asgiref           3.5.2
+Django            3.2.16
+mysqlclient       1.4.6
+pip               20.1.1
+PyMySQL           1.0.2
+pytz              2022.4
+setuptools        47.1.0
+sqlparse          0.4.3
+typing-extensions 4.3.0
