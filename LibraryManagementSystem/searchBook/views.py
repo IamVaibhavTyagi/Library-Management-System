@@ -94,6 +94,13 @@ def checkout(request):
                 query = 'UPDATE Book SET Book.Available = "0" WHERE Book.isbn = "'+isbn+'"'
                 cursor.execute(query)
                 message = "Successfully checked out book. Return within 14 days to avoid fine."
+                query = "Select Loan_id from book_loans WHERE Book_Loans.Card_id = '" + \
+                    str(cardno)+"'"
+                cursor.execute(query)
+                loanId = cursor.fetchall()
+                print("loan id printing", loanId[-1][0])
+                cursor.execute("INSERT INTO Fines(Loan_id,Fine_amt,Paid) VALUES('" +
+                               str(loanId[-1][0]) + "','" + str(0.00) + "','0')")
             else:
                 message = "Book is not available."
         else:
@@ -108,6 +115,13 @@ def checkout(request):
                 query = 'UPDATE Book SET Book.Available = "0" WHERE Book.isbn = "'+isbn+'"'
                 cursor.execute(query)
                 message = "Successfully checked out book. Return within 14 days to avoid fine."
+                query = "Select Loan_id from book_loans WHERE Book_Loans.Card_id = '" + \
+                    str(cardno)+"'"
+                cursor.execute(query)
+                loanId = cursor.fetchall()
+                print("printing loanid", type(loanId[-1][0]))
+                cursor.execute("INSERT INTO Fines(Loan_id,Fine_amt,Paid) VALUES('" +
+                               str(loanId[-1][0]) + "','" + str(0.00) + "','0')")
             else:
                 message = "Maximum of only 3 books can be checked out by each individual."
 

@@ -3,7 +3,7 @@ import mysql.connector
 import json
 import pandas as pd
 
-with open('dbConfig.json') as config_file:
+with open("D:\\Personal Projects\\Library Management System\\dbConfig.json") as config_file:
     data = json.load(config_file)
 
 print(data["host"])
@@ -24,8 +24,10 @@ for query in initialQuery:
     cursor.execute(query)
 
 
-books = pd.read_csv('book.csv')
-borrowers = pd.read_csv('borrower.csv')
+books = pd.read_csv(
+    "D:\\Personal Projects\\Library Management System\\book.csv")
+borrowers = pd.read_csv(
+    "D:\\Personal Projects\\Library Management System\\borrower.csv")
 
 
 def insertDataBook(data, key):

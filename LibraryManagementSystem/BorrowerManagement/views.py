@@ -11,6 +11,7 @@ cursor = connection.cursor()
 
 @login_required(login_url="login:login")
 def index(request):
+    searchValue = True
     if(request.method == "POST"):
         name = request.POST['Bname']
         ssn = request.POST['inputSSN']
@@ -30,7 +31,7 @@ def index(request):
         if (cursor.fetchone() == None):
             cursor.execute('INSERT INTO Borrower(Ssn,Bname,Address,Phone) VALUES("' +
                            ssn + '","' + name + '","' + address + '","' + fphno + '");')
-            return render(request, "manageBorrower.html", {'message': "Borrower added successfully"})
+            return render(request, "manageBorrower.html", {'searchValue': False, 'message': "Borrower added successfully"})
         else:
-            return render(request, "manageBorrower.html", {'message': "Borrower with same SSN already exist. Hence cannot add the borrower."})
-    return render(request, "manageBorrower.html")
+            return render(request, "manageBorrower.html", {'searchValue': False, 'message': "Borrower with same SSN already exist."})
+    return render(request, "manageBorrower.html", {'searchValue': searchValue})

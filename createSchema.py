@@ -4,7 +4,7 @@ import mysql.connector
 from mysql.connector import errorcode
 import json
 
-with open('dbConfig.json') as config_file:
+with open('D:\\Personal Projects\\Library Management System\\dbConfig.json') as config_file:
     data = json.load(config_file)
 
 
