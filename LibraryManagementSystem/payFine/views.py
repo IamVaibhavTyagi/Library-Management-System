@@ -35,6 +35,15 @@ def index(request):
 
             page = p.get_page(1)
             return render(request, 'payFine.html', {"page": page, "flag": False, "totalpages": p.num_pages, "searchValue": True, 'books_list': fine_list})
+        elif ('paidfinesbtn' in request.POST):
+            query = "SELECT borrowerFine.Card_id, borrowerFine.Ssn, borrowerFine.Bname, borrowerFine.Totalfine, borrowerFine.Loan_id FROM (SELECT Borrower.Card_id, Borrower.Ssn, Borrower.Bname, SUM(Fines.Fine_amt) Totalfine, Book_Loans.Loan_id FROM Borrower,Book_Loans,Fines WHERE Borrower.Card_id = Book_Loans.Card_id AND Book_Loans.Loan_id = Fines.Loan_id AND Fines.Paid = '1' GROUP BY Borrower.Card_id) AS borrowerFine"
+            cursor.execute(query)
+            fine_list = list(cursor.fetchall())
+            print(fine_list)
+            p = Paginator(fine_list, 6)
+
+            page = p.get_page(1)
+            return render(request, 'payFine.html', {"page": page, "flag": False, "totalpages": p.num_pages, "searchValue": True, 'books_list': fine_list})
         else:
             print("Search text box is Empty!")
             return render(request, "payFine.html", {"searchValue": searchValue, "flag": False})
@@ -95,6 +104,7 @@ def makePayment(request):
         return render(request, "payFine.html", {'message': "Return/Check-In all the books borrowed before paying the fine."})
     else:
         for loanid in loan_ids:
-            cursor.execute("UPDATE Fines SET Fines.Paid = '1' WHERE Fines.Loan_id = '" +
-                           str(loanid[0])+"' AND Fines.Paid = '0'")
+            if cursor.execute("UPDATE Fines SET Fines.Paid = '1' WHERE Fines.Loan_id = '" +
+                              str(loanid[0])+"' AND Fines.Paid = '0'") == 0:
+                return render(request, "payFine.html", {'message': "Fine already paid."})
         return render(request, "payFine.html", {'message': "Successfully Paid fine."})
