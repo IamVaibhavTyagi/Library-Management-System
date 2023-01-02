@@ -17,7 +17,7 @@ Check whether MySQL is installed properly and running. You can check that by goi
 OR 
 by directly going to the MySQL command line tool.
 
-2. Extract the project folder.
+2. Extract the project folder. Activate the virtual env using - env\Scripts\activate
 
 3. Open the folder and go to dbConfig.json. Enter your database details such as username and password. Save it
 
